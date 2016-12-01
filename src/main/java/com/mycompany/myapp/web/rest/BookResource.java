@@ -5,8 +5,11 @@ import com.mycompany.myapp.domain.Book;
 
 import com.mycompany.myapp.repository.BookRepository;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
+import com.mycompany.myapp.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,14 +79,18 @@ public class BookResource {
     /**
      * GET  /books : get all the books.
      *
+     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of books in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @GetMapping("/books")
     @Timed
-    public List<Book> getAllBooks() {
-        log.debug("REST request to get all Books");
-        List<Book> books = bookRepository.findAll();
-        return books;
+    public ResponseEntity<List<Book>> getAllBooks(Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Books");
+        Page<Book> page = bookRepository.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/books");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**

@@ -42,5 +42,5 @@
     "dto": "no",
     "service": "no",
     "entityTableName": "borrow",
-    "pagination": "no"
+    "pagination": "pagination"
 }

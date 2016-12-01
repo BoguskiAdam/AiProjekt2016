@@ -17,16 +17,16 @@
     <div class="table-responsive">
         <table class="jh-table table table-striped">
             <thead>
-                <tr>
-                    <th><span>ID</span></th>
-                    <th><span>Isbn</span></th>
-                    <th><span>Title</span></th>
-                    <th><span>Author</span></th>
-                    <th><span>Year Of Publication</span></th>
-                    <th><span>Image Url S</span></th>
-                    <th><span>Image Url M</span></th>
-                    <th><span>Image Url L</span></th>
-                    <th><span>Price</span></th>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="isbn"><span>Isbn</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="title"><span>Title</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="author"><span>Author</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="yearOfPublication"><span>Year Of Publication</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="imageUrlS"><span>Image Url S</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="imageUrlM"><span>Image Url M</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="imageUrlL"><span>Image Url L</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="price"><span>Price</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -66,5 +66,9 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
     </div>
 </div>

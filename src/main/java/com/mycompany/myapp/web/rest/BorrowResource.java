@@ -5,8 +5,11 @@ import com.mycompany.myapp.domain.Borrow;
 
 import com.mycompany.myapp.repository.BorrowRepository;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
+import com.mycompany.myapp.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,14 +79,18 @@ public class BorrowResource {
     /**
      * GET  /borrows : get all the borrows.
      *
+     * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of borrows in body
+     * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
     @GetMapping("/borrows")
     @Timed
-    public List<Borrow> getAllBorrows() {
-        log.debug("REST request to get all Borrows");
-        List<Borrow> borrows = borrowRepository.findAll();
-        return borrows;
+    public ResponseEntity<List<Borrow>> getAllBorrows(Pageable pageable)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Borrows");
+        Page<Borrow> page = borrowRepository.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/borrows");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**

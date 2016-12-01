@@ -33,5 +33,5 @@
     "dto": "no",
     "service": "no",
     "entityTableName": "book_ratings",
-    "pagination": "no"
+    "pagination": "pagination"
 }
