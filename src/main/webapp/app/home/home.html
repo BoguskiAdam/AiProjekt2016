@@ -1,26 +1,20 @@
 <div ng-cloak>
     <div class="row">
-        <div class="col-md-4">
-            <span class="hipster img-responsive img-rounded"></span>
-        </div>
-        <div class="col-md-8">
-            <h1>Witamy na sklepie z ksiazkami</h1>
-            <p class="lead">Jest to strona glowna</p>
 
             <div ng-switch="vm.isAuthenticated()">
-                <div class="alert alert-success" ng-switch-when="true">
-                    Jestes zalogowany jakos "{{vm.account.login}}".
+                <div ng-switch-when="false">
+                    <div class="col-md-2">
+                        <span class="hipster img-responsive img-rounded"></span>
+                    </div>
+                    <div class="col-md-10">
+                    <p>Aby moc w pelni korzystac z serwisu <a class="alert-link" href="" ng-click="vm.login()">zaloguj sie</a> lub <a class="alert-link" ui-sref="register">Stworz nowe konto</a></p>
                 </div>
-
                 <div class="alert alert-warning" ng-switch-when="false">
-                    If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-                </div>
-
-                <div class="alert alert-warning" ng-switch-when="false">
-                    You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
+                    - Administrator (login="admin" and password="admin")<br/>
+                    - Zwykly uzytkownik (login="user" and password="user").
                 </div>
             </div>
-
+<!--
             <p>
                 <h3>Info o projekcie:&nbsp;</h3>
                 <span>Wykonali:</span>
@@ -39,6 +33,53 @@
                 <li><span>Remote http: </span>&nbsp;<a href="https://github.com/BoguskiAdam/AiProjekt2016.git" target="_blank">https://github.com/BoguskiAdam/AiProjekt2016.git</a></li>
         </ul>
             </p>
+            -->
         </div>
     </div>
 </div>
+<div>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped table-hover">
+            <thead>
+            <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                <th><span>Obraz</span> </th>
+                <th jh-sort-by="title"><span>Tytul</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="author"><span>Autor</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="price"><span>Cena</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr ng-repeat="book in vm.books track by book.id" >
+                <td><img class="books-small" src="{{book.imageUrlS}}"/></td>
+                <td>{{book.title}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.price}}</td>
+                <td class="text-right">
+                    <div ng-switch="vm.isAuthenticated()">
+                        <div ng-switch-when="true" class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="bookStore-detail({id:book.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                        <div ng-switch-when="false" class="btn-group flex-btn-group-container">
+                            <button type="submit" class="btn btn-secondary btn-sm" disabled>
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+        <uib-pagination class="pagination-sm" total-items="vm.totalItems" items-per-page="vm.itemsPerPage" ng-model="vm.page" ng-change="vm.transition()"></uib-pagination>
+    </div>
+</div>
+

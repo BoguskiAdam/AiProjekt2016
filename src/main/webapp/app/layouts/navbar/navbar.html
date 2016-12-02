@@ -8,8 +8,8 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand logo" href="#/" ng-click="vm.collapseNavbar()">
-                <img class="logo-img" src="content/images/Logo_WAT.jpg"/>
-                <span>Aplikacje internetowe</span>
+                <img class="logo-img" src="content/images/book.png"/>
+                <span>Wypozyczalnia ksiazek</span>
             </a>
         </div>
         <div class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed" ng-switch="vm.isAuthenticated()">
@@ -79,7 +79,7 @@
                 <li ng-class="{active: vm.$state.includes('entity')}" ng-switch-when="true" uib-dropdown has-authority="ROLE_ADMIN" class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="entity-menu">
                         <span>
-                            <span class="glyphicon glyphicon-th-list"></span>
+                            <span class="glyphicon glyphicon-hdd"></span>
                             <span class="hidden-sm">
                                 Baza danych
                             </span>
@@ -89,20 +89,20 @@
                     <ul class="dropdown-menu" uib-dropdown-menu>
                         <li ui-sref-active="active">
                             <a ui-sref="book" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
-                                <span >Ksiazki</span>
+                                <span class="glyphicon glyphicon-folder"></span>&nbsp;
+                                <span >Book</span>
                             </a>
                         </li>
                         <li ui-sref-active="active">
                             <a ui-sref="book-ratings" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
-                                <span >Oceny ksiazek</span>
+                                <span class="glyphicon glyphicon-folder"></span>&nbsp;
+                                <span >Book Ratings</span>
                             </a>
                         </li>
                         <li ui-sref-active="active">
                             <a ui-sref="borrow" ng-click="vm.collapseNavbar()">
-                                <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
-                                <span >Wypozyczenia</span>
+                                <span class="glyphicon glyphicon-folder"></span>&nbsp;
+                                <span >Borrows</span>
                             </a>
                         </li>
                         <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->

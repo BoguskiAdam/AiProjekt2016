@@ -3,15 +3,14 @@
 
     angular
         .module('aiProjektApp')
-        .controller('BookDetailController', BookDetailController);
+        .controller('BookStoreDetailController', BookStoreDetailController);
 
-    BookDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Book'];
+    BookStoreDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Book'];
 
-    function BookDetailController($scope, $rootScope, $stateParams, previousState, entity, Book) {
+    function BookStoreDetailController($scope, $rootScope, $stateParams, previousState, entity, Book) {
         var vm = this;
 
         vm.book = entity;
-        vm.rating = 5;
         vm.previousState = previousState.name;
 
         var unsubscribe = $rootScope.$on('aiProjektApp:bookUpdate', function(event, result) {

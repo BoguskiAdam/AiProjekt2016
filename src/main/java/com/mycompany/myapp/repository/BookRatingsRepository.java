@@ -9,5 +9,4 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 @SuppressWarnings("unused")
 public interface BookRatingsRepository extends MongoRepository<BookRatings,String> {
-
 }

@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/book?page&sort&search',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_ADMIN'],
                 pageTitle: 'Books'
             },
             views: {
@@ -50,7 +50,7 @@
             parent: 'entity',
             url: '/book/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_ADMIN'],
                 pageTitle: 'Book'
             },
             views: {
