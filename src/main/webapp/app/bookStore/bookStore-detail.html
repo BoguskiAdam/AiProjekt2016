@@ -1,0 +1,46 @@
+
+<div>
+    <h2><span>Book</span> {{vm.book.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Isbn</span></dt>
+        <dd>
+            <span>{{vm.book.isbn}}</span>
+        </dd>
+        <dt><span>Title</span></dt>
+        <dd>
+            <span>{{vm.book.title}}</span>
+        </dd>
+        <dt><span>Author</span></dt>
+        <dd>
+            <span>{{vm.book.author}}</span>
+        </dd>
+        <dt><span>Year Of Publication</span></dt>
+        <dd>
+            <span>{{vm.book.yearOfPublication}}</span>
+        </dd>
+        <dt><span>Image Url S</span></dt>
+        <dd>
+            <span>{{vm.book.imageUrlS}}</span>
+        </dd>
+        <dt><span>Image Url M</span></dt>
+        <dd>
+            <span>{{vm.book.imageUrlM}}</span>
+        </dd>
+        <dt><span>Image Url L</span></dt>
+        <dd>
+            <span>{{vm.book.imageUrlL}}</span>
+        </dd>
+        <dt><span>Price</span></dt>
+        <dd>
+            <span>{{vm.book.price}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+</div>
