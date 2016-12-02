@@ -50,7 +50,7 @@
             parent: 'entity',
             url: '/book/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_ADMIN'],
                 pageTitle: 'Book'
             },
             views: {

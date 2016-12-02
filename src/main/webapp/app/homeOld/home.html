@@ -1,0 +1,44 @@
+<div ng-cloak>
+    <div class="row">
+        <div class="col-md-4">
+            <span class="hipster img-responsive img-rounded"></span>
+        </div>
+        <div class="col-md-8">
+            <h1>Witamy na sklepie z ksiazkami</h1>
+            <p class="lead">Jest to strona glowna</p>
+
+            <div ng-switch="vm.isAuthenticated()">
+                <div class="alert alert-success" ng-switch-when="true">
+                    Jestes zalogowany jakos "{{vm.account.login}}".
+                </div>
+
+                <div class="alert alert-warning" ng-switch-when="false">
+                    If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
+                </div>
+
+                <div class="alert alert-warning" ng-switch-when="false">
+                    You don't have an account yet? <a class="alert-link" ui-sref="register">Register a new account</a>
+                </div>
+            </div>
+
+            <p>
+                <h3>Info o projekcie:&nbsp;</h3>
+                <span>Wykonali:</span>
+                <ul>
+                    <li>Boguski Adam</li>
+                    <li>Owczarska Katarzyna</li>
+                    <li>Kolacinski Lukasz</li>
+                </ul>
+            </p>
+
+            <p>
+            Linki:
+                <ul>
+                <li><span>Link do repozytorium: </span>&nbsp;<a href="https://github.com/BoguskiAdam/AiProjekt2016" target="_blank">https://github.com/BoguskiAdam/AiProjekt2016</a></li>
+                <li><span>Remote git: </span>&nbsp;<a href="git@github.com:BoguskiAdam/AiProjekt2016.git" target="_blank">git@github.com:BoguskiAdam/AiProjekt2016.git</a></li>
+                <li><span>Remote http: </span>&nbsp;<a href="https://github.com/BoguskiAdam/AiProjekt2016.git" target="_blank">https://github.com/BoguskiAdam/AiProjekt2016.git</a></li>
+        </ul>
+            </p>
+        </div>
+    </div>
+</div>

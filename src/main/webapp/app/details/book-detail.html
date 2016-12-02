@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <div class="row">
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="col-md-4 limit">
+            <img src="{{vm.book.imageUrlL}}"/>
+        </div>
+        <div class="col-md-8">
+
+            <dl class="dl-horizontal jh-entity-details">
+                <dt><span>Isbn</span></dt>
+                <dd>
+                    <span>{{vm.book.isbn}}</span>
+                </dd>
+                <dt><span>Title</span></dt>
+                <dd>
+                    <span>{{vm.book.title}}</span>
+                </dd>
+                <dt><span>Author</span></dt>
+                <dd>
+                    <span>{{vm.book.author}}</span>
+                </dd>
+                <dt><span>Year Of Publication</span></dt>
+                <dd>
+                    <span>{{vm.book.yearOfPublication}}</span>
+                </dd>
+                <dt><span>Price</span></dt>
+                <dd>
+                    <span>{{vm.book.price}}</span>
+                </dd>
+            </dl>
+        </div>
+
+    <button type="submit"
+            ui-sref="home"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span>Powrot</span>
+    </button>
+
+    <button type="button" ui-sref="book-detail.edit({id:vm.book.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+    </div>
+</div>

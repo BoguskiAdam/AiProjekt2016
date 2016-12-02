@@ -99,9 +99,9 @@ Main page styles
 
 .hipster {
     display: inline-block;
-    width: 347px;
-    height: 497px;
-    background: url("../images/hipster.png") no-repeat center top;
+    height: 100px;
+    width: 100%;
+    background: url("../images/book.png") no-repeat center top;
     background-size: contain;
 }
 
@@ -114,7 +114,7 @@ only screen and (        min-device-pixel-ratio: 2),
 only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx) {
     .hipster {
-        background: url("../images/hipster2x.png") no-repeat center top;
+        background: url("../images/book.png") no-repeat center top;
         background-size: contain;
     }
 }
@@ -329,6 +329,27 @@ ui bootstrap tweaks
     outline: none;
 }
 
+img.books-small
+{
+    height: 96px;
+    center;
+}
 
-
+img.books-large
+{
+    center;
+}
+.limit{
+    max-height: 500px;
+    overflow: hidden;
+}
+.limit img{
+    width: 100%;
+    height: 100%;
+}
+.table-details td
+{
+    word-wrap: break-word;
+    max-width: 150px;
+}
 /* jhipster-needle-css-add-main JHipster will add new css style */
