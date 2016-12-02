@@ -19,8 +19,12 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
 /**
  * REST controller for managing BookRatings.
@@ -30,7 +34,7 @@ import java.util.Optional;
 public class BookRatingsResource {
 
     private final Logger log = LoggerFactory.getLogger(BookRatingsResource.class);
-        
+
     @Inject
     private BookRatingsRepository bookRatingsRepository;
 
@@ -124,5 +128,4 @@ public class BookRatingsResource {
         bookRatingsRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("bookRatings", id.toString())).build();
     }
-
 }

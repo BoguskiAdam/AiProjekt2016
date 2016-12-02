@@ -11,6 +11,7 @@
         var vm = this;
 
         vm.book = entity;
+        vm.rating = 5;
         vm.previousState = previousState.name;
 
         var unsubscribe = $rootScope.$on('aiProjektApp:bookUpdate', function(event, result) {
