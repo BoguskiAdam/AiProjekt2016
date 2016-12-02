@@ -13,19 +13,13 @@
             </a>
         </div>
         <div class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed" ng-switch="vm.isAuthenticated()">
+
+            <!-- Strola glowna -->
             <ul class="nav navbar-nav navbar-right">
-                <!-- Strola glowna -->
                 <li ui-sref-active="active">
                     <a ui-sref="home" ng-click="vm.collapseNavbar()">
                         <span class="glyphicon glyphicon-home"></span>
                         <span class="hidden-sm">Strona glowna</span>
-                    </a>
-                </li>
-
-                <li ui-sref-active="active">
-                    <a ui-sref="bookStore" ng-click="vm.collapseNavbar()">
-                        <span class="glyphicon glyphicon-book"></span>
-                        <span class="hidden-sm">Wypozyczalnia</span>
                     </a>
                 </li>
 
