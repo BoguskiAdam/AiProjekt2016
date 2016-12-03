@@ -352,4 +352,9 @@ img.books-large
     word-wrap: break-word;
     max-width: 150px;
 }
+
+span.lewa
+{
+   min-width: 150px;
+}
 /* jhipster-needle-css-add-main JHipster will add new css style */

@@ -24,22 +24,46 @@
                 <dd>
                     <span>{{vm.book.yearOfPublication}}</span>
                 </dd>
-                <dt><span>Cena</span></dt>
+                <dt><span>Cena za dobe</span></dt>
                 <dd>
                     <span>{{vm.book.price}}</span>
                 </dd>
             </dl>
         </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-4">
+            <h2>Wypozycz</h2>
+            <div class="form-group">
+                <input type="range" ng-change="changeHandler()" ng-model="vm.daysCount" min="1" max="30" step="1" to-number />
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon lewa">Ilosc dni</span>
+                <input type="number" ng-change="changeHandler()" class="form-control srodek" id="daysCount" ng-model="vm.daysCount" required min="1" max="30" to-number aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon lewa">Data zwrotu</span>
+                <span class="form-control">{{vm.returnDate}}</span>
+            </div>
 
-    <button type="submit"
-            ui-sref="home"
-            class="btn btn-info">
+            <div class="input-group">
+                <span class="input-group-addon lewa">Kwota</span>
+                <span class="form-control">{{vm.cost}}</span>
+                <span class="input-group-addon">PLN</span>
+                 <!--<span class="input-group-addon">.00</span>-->
+            </div>
+
+            <p>Ksiazke mozna wypozyczyc maksymalnie na 30 dni.</p>
+        </div>
+    </div>
+
+    <button type="submit" ui-sref="home" class="btn btn-primary col-md-2">
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span>Powrot</span>
     </button>
 
-    <button type="button" ui-sref="book-detail.edit({id:vm.book.id})" class="btn btn-primary">
-        <span class="glyphicon glyphicon-pencil"></span>
-        <span class="hidden-xs hidden-sm"> Edit</span>
+    <button type="button" ui-sref="book-detail.edit({id:vm.book.id})" class="btn btn-success col-md-2 col-md-offset-8">
+        <span class="glyphicon glyphicon-shopping-cart"></span>
+        <span class="hidden-xs hidden-sm">Wypozycz</span>
     </button>
-    </div>
 </div>

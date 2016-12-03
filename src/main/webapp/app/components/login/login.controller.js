@@ -54,6 +54,7 @@
                     var previousState = Auth.getPreviousState();
                     Auth.resetPreviousState();
                     $state.go(previousState.name, previousState.params);
+                    location.reload();
                 }
             }).catch(function () {
                 vm.authenticationError = true;
