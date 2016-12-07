@@ -36,6 +36,14 @@
             "fieldType": "String"
         },
         {
+            "fieldName": "Publisher",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "available",
+            "fieldType": "Integer"
+        },
+        {
             "fieldName": "price",
             "fieldType": "BigDecimal",
             "fieldValidateRules": [

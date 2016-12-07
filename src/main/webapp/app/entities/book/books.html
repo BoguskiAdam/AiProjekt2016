@@ -24,8 +24,6 @@
                     <th jh-sort-by="author"><span>Author</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="yearOfPublication"><span>Year Of Publication</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="imageUrlS"><span>Image Url S</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="imageUrlM"><span>Image Url M</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="imageUrlL"><span>Image Url L</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="price"><span>Price</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -37,9 +35,8 @@
                     <td>{{book.title}}</td>
                     <td>{{book.author}}</td>
                     <td>{{book.yearOfPublication}}</td>
-                    <td>{{book.imageUrlS}}"</td>
-                    <td><{{book.imageUrlM}}</td>
-                    <td>{{book.imageUrlL}}</td>
+                    <td><img src="{{book.imageUrlS}}"height="70" width="50"><img></td>
+
                     <td>{{book.price}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
