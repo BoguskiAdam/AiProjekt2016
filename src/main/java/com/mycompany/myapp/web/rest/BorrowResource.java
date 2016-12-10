@@ -29,7 +29,7 @@ import java.util.Optional;
 public class BorrowResource {
 
     private final Logger log = LoggerFactory.getLogger(BorrowResource.class);
-        
+
     @Inject
     private BorrowService borrowService;
 
@@ -91,6 +91,14 @@ public class BorrowResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/borrows");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    @GetMapping("/borrows/user/{userId}")
+    @Timed
+    public ResponseEntity<List<Borrow>> getAllUserBorrows(@PathVariable String userId)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Borrows");
+        List<Borrow> page = borrowService.findByUserId(userId);
+        return new ResponseEntity<>(page, HttpStatus.OK);
+    }
 
     /**
      * GET  /borrows/:id : get the "id" borrow.
@@ -98,17 +106,17 @@ public class BorrowResource {
      * @param id the id of the borrow to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the borrow, or with status 404 (Not Found)
      */
-    @GetMapping("/borrows/{id}")
-    @Timed
-    public ResponseEntity<Borrow> getBorrow(@PathVariable String id) {
-        log.debug("REST request to get Borrow : {}", id);
-        Borrow borrow = borrowService.findOne(id);
-        return Optional.ofNullable(borrow)
-            .map(result -> new ResponseEntity<>(
-                result,
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
+//    @GetMapping("/borrows/{id}")
+//    @Timed
+//    public ResponseEntity<Borrow> getBorrow(@PathVariable String id) {
+//        log.debug("REST request to get Borrow : {}", id);
+//        Borrow borrow = borrowService.findOne(id);
+//        return Optional.ofNullable(borrow)
+//            .map(result -> new ResponseEntity<>(
+//                result,
+//                HttpStatus.OK))
+//            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//    }
 
     /**
      * DELETE  /borrows/:id : delete the "id" borrow.

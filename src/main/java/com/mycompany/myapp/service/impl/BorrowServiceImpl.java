@@ -19,7 +19,7 @@ import java.util.List;
 public class BorrowServiceImpl implements BorrowService{
 
     private final Logger log = LoggerFactory.getLogger(BorrowServiceImpl.class);
-    
+
     @Inject
     private BorrowRepository borrowRepository;
 
@@ -37,7 +37,7 @@ public class BorrowServiceImpl implements BorrowService{
 
     /**
      *  Get all the borrows.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -47,6 +47,11 @@ public class BorrowServiceImpl implements BorrowService{
         return result;
     }
 
+    public List<Borrow> findByUserId(String userId) {
+        log.debug("Request to get all Borrows by user id");
+        List<Borrow> result = borrowRepository.findBorrowsByUserId(userId);
+        return result;
+    }
     /**
      *  Get one borrow by id.
      *

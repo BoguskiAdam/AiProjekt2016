@@ -21,7 +21,7 @@ public interface BorrowService {
 
     /**
      *  Get all the borrows.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -41,4 +41,6 @@ public interface BorrowService {
      *  @param id the id of the entity
      */
     void delete(String id);
+
+    List<Borrow> findByUserId(String userId);
 }
