@@ -1,0 +1,2 @@
+tar -xf Desktop/Projekt/Dokumenty/book.json.tar.gz
+mongoimport --db AiProjekt --collection book --file book.json

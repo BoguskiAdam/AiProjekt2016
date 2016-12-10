@@ -1,5 +1,5 @@
 <div>
-    <h2>Lista ksiazek:</h2>
+    <h2>Books:</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
@@ -18,13 +18,12 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="isbn"><span>ISBN</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="title"><span>Tytul</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="author"><span>Autor</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="yearOfPublication"><span>Rok wydania</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="imageUrlS"><span>Okladka</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="price"><span>Cena</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="id"><span>id</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="isbn"><span>isbn</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="title"><span>title</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="author"><span>author</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="yearOfPublication"><span>yearOfPublication</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="price"><span>price</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -35,8 +34,6 @@
                     <td>{{book.title}}</td>
                     <td>{{book.author}}</td>
                     <td>{{book.yearOfPublication}}</td>
-                    <td><a href="{{book.imageUrlL}}" target="_blank"><img src="{{book.imageUrlS}}"height="70" width="50" /></a></td>
-
                     <td>{{book.price}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
