@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface BookRatingsService {
 
+    public List<BookRatings> findByIsbnString (String isbn);
+
     /**
      * Save a bookRatings.
      *
@@ -21,7 +23,7 @@ public interface BookRatingsService {
 
     /**
      *  Get all the bookRatings.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */

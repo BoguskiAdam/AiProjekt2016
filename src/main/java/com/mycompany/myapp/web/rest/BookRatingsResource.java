@@ -29,7 +29,7 @@ import java.util.Optional;
 public class BookRatingsResource {
 
     private final Logger log = LoggerFactory.getLogger(BookRatingsResource.class);
-        
+
     @Inject
     private BookRatingsService bookRatingsService;
 
@@ -110,6 +110,14 @@ public class BookRatingsResource {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @GetMapping("/book-ratings/user/{userId}")
+    @Timed
+    public ResponseEntity<List<BookRatings>> getAllUserBorrows(@PathVariable String userId)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Borrows");
+        List<BookRatings> page = bookRatingsService.findByIsbnString(userId);
+        return new ResponseEntity<>(page, HttpStatus.OK);
+    }
     /**
      * DELETE  /book-ratings/:id : delete the "id" bookRatings.
      *

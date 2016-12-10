@@ -1,5 +1,6 @@
 package com.mycompany.myapp.service.impl;
 
+import com.mycompany.myapp.domain.Borrow;
 import com.mycompany.myapp.service.BookRatingsService;
 import com.mycompany.myapp.domain.BookRatings;
 import com.mycompany.myapp.repository.BookRatingsRepository;
@@ -19,7 +20,7 @@ import java.util.List;
 public class BookRatingsServiceImpl implements BookRatingsService{
 
     private final Logger log = LoggerFactory.getLogger(BookRatingsServiceImpl.class);
-    
+
     @Inject
     private BookRatingsRepository bookRatingsRepository;
 
@@ -35,9 +36,15 @@ public class BookRatingsServiceImpl implements BookRatingsService{
         return result;
     }
 
+
+    public List<BookRatings> findByIsbnString (String isbn) {
+        log.debug("Request to get all Borrows by user id");
+        List<BookRatings> result = bookRatingsRepository.findBookRatingsByIsbn(isbn);
+        return result;
+    }
     /**
      *  Get all the bookRatings.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
