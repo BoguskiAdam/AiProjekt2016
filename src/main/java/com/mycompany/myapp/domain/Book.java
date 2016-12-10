@@ -44,6 +44,12 @@ public class Book implements Serializable {
     @Field("image_url_l")
     private String imageUrlL;
 
+    @Field("publisher")
+    private String Publisher;
+
+    @Field("available")
+    private Integer available;
+
     @NotNull
     @DecimalMin(value = "1")
     @Field("price")
@@ -148,6 +154,32 @@ public class Book implements Serializable {
         this.imageUrlL = imageUrlL;
     }
 
+    public String getPublisher() {
+        return Publisher;
+    }
+
+    public Book Publisher(String Publisher) {
+        this.Publisher = Publisher;
+        return this;
+    }
+
+    public void setPublisher(String Publisher) {
+        this.Publisher = Publisher;
+    }
+
+    public Integer getAvailable() {
+        return available;
+    }
+
+    public Book available(Integer available) {
+        this.available = available;
+        return this;
+    }
+
+    public void setAvailable(Integer available) {
+        this.available = available;
+    }
+
     public BigDecimal getPrice() {
         return price;
     }
@@ -192,6 +224,8 @@ public class Book implements Serializable {
             ", imageUrlS='" + imageUrlS + "'" +
             ", imageUrlM='" + imageUrlM + "'" +
             ", imageUrlL='" + imageUrlL + "'" +
+            ", Publisher='" + Publisher + "'" +
+            ", available='" + available + "'" +
             ", price='" + price + "'" +
             '}';
     }

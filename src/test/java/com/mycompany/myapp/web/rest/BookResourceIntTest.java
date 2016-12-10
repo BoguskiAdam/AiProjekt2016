@@ -4,6 +4,7 @@ import com.mycompany.myapp.AiProjektApp;
 
 import com.mycompany.myapp.domain.Book;
 import com.mycompany.myapp.repository.BookRepository;
+import com.mycompany.myapp.service.BookService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -58,11 +59,20 @@ public class BookResourceIntTest {
     private static final String DEFAULT_IMAGE_URL_L = "AAAAA";
     private static final String UPDATED_IMAGE_URL_L = "BBBBB";
 
+    private static final String DEFAULT_PUBLISHER = "AAAAA";
+    private static final String UPDATED_PUBLISHER = "BBBBB";
+
+    private static final Integer DEFAULT_AVAILABLE = 1;
+    private static final Integer UPDATED_AVAILABLE = 2;
+
     private static final BigDecimal DEFAULT_PRICE = new BigDecimal(1);
     private static final BigDecimal UPDATED_PRICE = new BigDecimal(2);
 
     @Inject
     private BookRepository bookRepository;
+
+    @Inject
+    private BookService bookService;
 
     @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -78,7 +88,7 @@ public class BookResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         BookResource bookResource = new BookResource();
-        ReflectionTestUtils.setField(bookResource, "bookRepository", bookRepository);
+        ReflectionTestUtils.setField(bookResource, "bookService", bookService);
         this.restBookMockMvc = MockMvcBuilders.standaloneSetup(bookResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -99,6 +109,8 @@ public class BookResourceIntTest {
                 .imageUrlS(DEFAULT_IMAGE_URL_S)
                 .imageUrlM(DEFAULT_IMAGE_URL_M)
                 .imageUrlL(DEFAULT_IMAGE_URL_L)
+                .Publisher(DEFAULT_PUBLISHER)
+                .available(DEFAULT_AVAILABLE)
                 .price(DEFAULT_PRICE);
         return book;
     }
@@ -131,6 +143,8 @@ public class BookResourceIntTest {
         assertThat(testBook.getImageUrlS()).isEqualTo(DEFAULT_IMAGE_URL_S);
         assertThat(testBook.getImageUrlM()).isEqualTo(DEFAULT_IMAGE_URL_M);
         assertThat(testBook.getImageUrlL()).isEqualTo(DEFAULT_IMAGE_URL_L);
+        assertThat(testBook.getPublisher()).isEqualTo(DEFAULT_PUBLISHER);
+        assertThat(testBook.getAvailable()).isEqualTo(DEFAULT_AVAILABLE);
         assertThat(testBook.getPrice()).isEqualTo(DEFAULT_PRICE);
     }
 
@@ -185,6 +199,8 @@ public class BookResourceIntTest {
                 .andExpect(jsonPath("$.[*].imageUrlS").value(hasItem(DEFAULT_IMAGE_URL_S.toString())))
                 .andExpect(jsonPath("$.[*].imageUrlM").value(hasItem(DEFAULT_IMAGE_URL_M.toString())))
                 .andExpect(jsonPath("$.[*].imageUrlL").value(hasItem(DEFAULT_IMAGE_URL_L.toString())))
+                .andExpect(jsonPath("$.[*].Publisher").value(hasItem(DEFAULT_PUBLISHER.toString())))
+                .andExpect(jsonPath("$.[*].available").value(hasItem(DEFAULT_AVAILABLE)))
                 .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.intValue())));
     }
 
@@ -205,6 +221,8 @@ public class BookResourceIntTest {
             .andExpect(jsonPath("$.imageUrlS").value(DEFAULT_IMAGE_URL_S.toString()))
             .andExpect(jsonPath("$.imageUrlM").value(DEFAULT_IMAGE_URL_M.toString()))
             .andExpect(jsonPath("$.imageUrlL").value(DEFAULT_IMAGE_URL_L.toString()))
+            .andExpect(jsonPath("$.Publisher").value(DEFAULT_PUBLISHER.toString()))
+            .andExpect(jsonPath("$.available").value(DEFAULT_AVAILABLE))
             .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.intValue()));
     }
 
@@ -218,7 +236,8 @@ public class BookResourceIntTest {
     @Test
     public void updateBook() throws Exception {
         // Initialize the database
-        bookRepository.save(book);
+        bookService.save(book);
+
         int databaseSizeBeforeUpdate = bookRepository.findAll().size();
 
         // Update the book
@@ -231,6 +250,8 @@ public class BookResourceIntTest {
                 .imageUrlS(UPDATED_IMAGE_URL_S)
                 .imageUrlM(UPDATED_IMAGE_URL_M)
                 .imageUrlL(UPDATED_IMAGE_URL_L)
+                .Publisher(UPDATED_PUBLISHER)
+                .available(UPDATED_AVAILABLE)
                 .price(UPDATED_PRICE);
 
         restBookMockMvc.perform(put("/api/books")
@@ -249,13 +270,16 @@ public class BookResourceIntTest {
         assertThat(testBook.getImageUrlS()).isEqualTo(UPDATED_IMAGE_URL_S);
         assertThat(testBook.getImageUrlM()).isEqualTo(UPDATED_IMAGE_URL_M);
         assertThat(testBook.getImageUrlL()).isEqualTo(UPDATED_IMAGE_URL_L);
+        assertThat(testBook.getPublisher()).isEqualTo(UPDATED_PUBLISHER);
+        assertThat(testBook.getAvailable()).isEqualTo(UPDATED_AVAILABLE);
         assertThat(testBook.getPrice()).isEqualTo(UPDATED_PRICE);
     }
 
     @Test
     public void deleteBook() throws Exception {
         // Initialize the database
-        bookRepository.save(book);
+        bookService.save(book);
+
         int databaseSizeBeforeDelete = bookRepository.findAll().size();
 
         // Get the book

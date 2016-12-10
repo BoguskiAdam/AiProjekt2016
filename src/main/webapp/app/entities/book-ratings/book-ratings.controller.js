@@ -9,7 +9,7 @@
 
     function BookRatingsController ($scope, $state, BookRatings, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
-
+        
         vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
         vm.reverse = pagingParams.ascending;
@@ -22,7 +22,6 @@
             BookRatings.query({
                 page: pagingParams.page - 1,
                 size: vm.itemsPerPage,
-                isbn: '2',
                 sort: sort()
             }, onSuccess, onError);
             function sort() {

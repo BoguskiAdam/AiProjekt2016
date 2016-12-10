@@ -4,6 +4,7 @@ import com.mycompany.myapp.AiProjektApp;
 
 import com.mycompany.myapp.domain.BookRatings;
 import com.mycompany.myapp.repository.BookRatingsRepository;
+import com.mycompany.myapp.service.BookRatingsService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -49,6 +50,9 @@ public class BookRatingsResourceIntTest {
     private BookRatingsRepository bookRatingsRepository;
 
     @Inject
+    private BookRatingsService bookRatingsService;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -62,7 +66,7 @@ public class BookRatingsResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         BookRatingsResource bookRatingsResource = new BookRatingsResource();
-        ReflectionTestUtils.setField(bookRatingsResource, "bookRatingsRepository", bookRatingsRepository);
+        ReflectionTestUtils.setField(bookRatingsResource, "bookRatingsService", bookRatingsService);
         this.restBookRatingsMockMvc = MockMvcBuilders.standaloneSetup(bookRatingsResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -199,7 +203,8 @@ public class BookRatingsResourceIntTest {
     @Test
     public void updateBookRatings() throws Exception {
         // Initialize the database
-        bookRatingsRepository.save(bookRatings);
+        bookRatingsService.save(bookRatings);
+
         int databaseSizeBeforeUpdate = bookRatingsRepository.findAll().size();
 
         // Update the bookRatings
@@ -226,7 +231,8 @@ public class BookRatingsResourceIntTest {
     @Test
     public void deleteBookRatings() throws Exception {
         // Initialize the database
-        bookRatingsRepository.save(bookRatings);
+        bookRatingsService.save(bookRatings);
+
         int databaseSizeBeforeDelete = bookRatingsRepository.findAll().size();
 
         // Get the bookRatings

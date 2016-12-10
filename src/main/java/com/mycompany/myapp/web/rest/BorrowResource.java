@@ -2,8 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.Borrow;
-
-import com.mycompany.myapp.repository.BorrowRepository;
+import com.mycompany.myapp.service.BorrowService;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import com.mycompany.myapp.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -32,7 +31,7 @@ public class BorrowResource {
     private final Logger log = LoggerFactory.getLogger(BorrowResource.class);
         
     @Inject
-    private BorrowRepository borrowRepository;
+    private BorrowService borrowService;
 
     /**
      * POST  /borrows : Create a new borrow.
@@ -48,7 +47,7 @@ public class BorrowResource {
         if (borrow.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("borrow", "idexists", "A new borrow cannot already have an ID")).body(null);
         }
-        Borrow result = borrowRepository.save(borrow);
+        Borrow result = borrowService.save(borrow);
         return ResponseEntity.created(new URI("/api/borrows/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("borrow", result.getId().toString()))
             .body(result);
@@ -70,7 +69,7 @@ public class BorrowResource {
         if (borrow.getId() == null) {
             return createBorrow(borrow);
         }
-        Borrow result = borrowRepository.save(borrow);
+        Borrow result = borrowService.save(borrow);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("borrow", borrow.getId().toString()))
             .body(result);
@@ -88,7 +87,7 @@ public class BorrowResource {
     public ResponseEntity<List<Borrow>> getAllBorrows(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Borrows");
-        Page<Borrow> page = borrowRepository.findAll(pageable);
+        Page<Borrow> page = borrowService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/borrows");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -103,7 +102,7 @@ public class BorrowResource {
     @Timed
     public ResponseEntity<Borrow> getBorrow(@PathVariable String id) {
         log.debug("REST request to get Borrow : {}", id);
-        Borrow borrow = borrowRepository.findOne(id);
+        Borrow borrow = borrowService.findOne(id);
         return Optional.ofNullable(borrow)
             .map(result -> new ResponseEntity<>(
                 result,
@@ -121,7 +120,7 @@ public class BorrowResource {
     @Timed
     public ResponseEntity<Void> deleteBorrow(@PathVariable String id) {
         log.debug("REST request to delete Borrow : {}", id);
-        borrowRepository.delete(id);
+        borrowService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("borrow", id.toString())).build();
     }
 

@@ -54,7 +54,7 @@
         }
     ],
     "dto": "no",
-    "service": "no",
+    "service": "serviceImpl",
     "entityTableName": "book",
     "pagination": "pagination"
 }

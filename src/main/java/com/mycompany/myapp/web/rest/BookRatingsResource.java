@@ -2,8 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.BookRatings;
-
-import com.mycompany.myapp.repository.BookRatingsRepository;
+import com.mycompany.myapp.service.BookRatingsService;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import com.mycompany.myapp.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -19,12 +18,8 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.on;
 
 /**
  * REST controller for managing BookRatings.
@@ -34,9 +29,9 @@ import static org.springframework.web.servlet.mvc.method.annotation.MvcUriCompon
 public class BookRatingsResource {
 
     private final Logger log = LoggerFactory.getLogger(BookRatingsResource.class);
-
+        
     @Inject
-    private BookRatingsRepository bookRatingsRepository;
+    private BookRatingsService bookRatingsService;
 
     /**
      * POST  /book-ratings : Create a new bookRatings.
@@ -52,7 +47,7 @@ public class BookRatingsResource {
         if (bookRatings.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("bookRatings", "idexists", "A new bookRatings cannot already have an ID")).body(null);
         }
-        BookRatings result = bookRatingsRepository.save(bookRatings);
+        BookRatings result = bookRatingsService.save(bookRatings);
         return ResponseEntity.created(new URI("/api/book-ratings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("bookRatings", result.getId().toString()))
             .body(result);
@@ -74,7 +69,7 @@ public class BookRatingsResource {
         if (bookRatings.getId() == null) {
             return createBookRatings(bookRatings);
         }
-        BookRatings result = bookRatingsRepository.save(bookRatings);
+        BookRatings result = bookRatingsService.save(bookRatings);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("bookRatings", bookRatings.getId().toString()))
             .body(result);
@@ -92,7 +87,7 @@ public class BookRatingsResource {
     public ResponseEntity<List<BookRatings>> getAllBookRatings(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of BookRatings");
-        Page<BookRatings> page = bookRatingsRepository.findAll(pageable);
+        Page<BookRatings> page = bookRatingsService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/book-ratings");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -107,7 +102,7 @@ public class BookRatingsResource {
     @Timed
     public ResponseEntity<BookRatings> getBookRatings(@PathVariable String id) {
         log.debug("REST request to get BookRatings : {}", id);
-        BookRatings bookRatings = bookRatingsRepository.findOne(id);
+        BookRatings bookRatings = bookRatingsService.findOne(id);
         return Optional.ofNullable(bookRatings)
             .map(result -> new ResponseEntity<>(
                 result,
@@ -125,7 +120,8 @@ public class BookRatingsResource {
     @Timed
     public ResponseEntity<Void> deleteBookRatings(@PathVariable String id) {
         log.debug("REST request to delete BookRatings : {}", id);
-        bookRatingsRepository.delete(id);
+        bookRatingsService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("bookRatings", id.toString())).build();
     }
+
 }

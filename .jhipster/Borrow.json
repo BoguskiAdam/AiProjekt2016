@@ -40,7 +40,7 @@
         }
     ],
     "dto": "no",
-    "service": "no",
+    "service": "serviceImpl",
     "entityTableName": "borrow",
     "pagination": "pagination"
 }

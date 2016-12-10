@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/borrow?page&sort&search',
             data: {
-                authorities: ['ROLE_ADMIN'],
+                authorities: ['ROLE_USER'],
                 pageTitle: 'Borrows'
             },
             views: {

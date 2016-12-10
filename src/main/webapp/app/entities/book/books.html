@@ -1,5 +1,5 @@
 <div>
-    <h2>Books:</h2>
+    <h2>Books</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
@@ -7,23 +7,28 @@
                 <button class="btn btn-primary" ui-sref="book.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span >
-                        Dodaj ksiazke
+                        Create new Book
                     </span>
                 </button>
             </div>
         </div>
     </div>
     <br/>
-    <div class="table-responsive table-details">
+    <div class="table-responsive">
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span>id</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="isbn"><span>isbn</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="title"><span>title</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="author"><span>author</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="yearOfPublication"><span>yearOfPublication</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="price"><span>price</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="isbn"><span>Isbn</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="title"><span>Title</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="author"><span>Author</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="yearOfPublication"><span>Year Of Publication</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="imageUrlS"><span>Image Url S</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="imageUrlM"><span>Image Url M</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="imageUrlL"><span>Image Url L</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="Publisher"><span>Publisher</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="available"><span>Available</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="price"><span>Price</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -34,6 +39,11 @@
                     <td>{{book.title}}</td>
                     <td>{{book.author}}</td>
                     <td>{{book.yearOfPublication}}</td>
+                    <td>{{book.imageUrlS}}</td>
+                    <td>{{book.imageUrlM}}</td>
+                    <td>{{book.imageUrlL}}</td>
+                    <td>{{book.Publisher}}</td>
+                    <td>{{book.available}}</td>
                     <td>{{book.price}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

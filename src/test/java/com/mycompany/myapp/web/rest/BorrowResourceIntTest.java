@@ -4,6 +4,7 @@ import com.mycompany.myapp.AiProjektApp;
 
 import com.mycompany.myapp.domain.Borrow;
 import com.mycompany.myapp.repository.BorrowRepository;
+import com.mycompany.myapp.service.BorrowService;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -58,6 +59,9 @@ public class BorrowResourceIntTest {
     private BorrowRepository borrowRepository;
 
     @Inject
+    private BorrowService borrowService;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -71,7 +75,7 @@ public class BorrowResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         BorrowResource borrowResource = new BorrowResource();
-        ReflectionTestUtils.setField(borrowResource, "borrowRepository", borrowRepository);
+        ReflectionTestUtils.setField(borrowResource, "borrowService", borrowService);
         this.restBorrowMockMvc = MockMvcBuilders.standaloneSetup(borrowResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -233,7 +237,8 @@ public class BorrowResourceIntTest {
     @Test
     public void updateBorrow() throws Exception {
         // Initialize the database
-        borrowRepository.save(borrow);
+        borrowService.save(borrow);
+
         int databaseSizeBeforeUpdate = borrowRepository.findAll().size();
 
         // Update the borrow
@@ -264,7 +269,8 @@ public class BorrowResourceIntTest {
     @Test
     public void deleteBorrow() throws Exception {
         // Initialize the database
-        borrowRepository.save(borrow);
+        borrowService.save(borrow);
+
         int databaseSizeBeforeDelete = borrowRepository.findAll().size();
 
         // Get the borrow

@@ -2,8 +2,7 @@ package com.mycompany.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.Book;
-
-import com.mycompany.myapp.repository.BookRepository;
+import com.mycompany.myapp.service.BookService;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import com.mycompany.myapp.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -32,7 +31,7 @@ public class BookResource {
     private final Logger log = LoggerFactory.getLogger(BookResource.class);
         
     @Inject
-    private BookRepository bookRepository;
+    private BookService bookService;
 
     /**
      * POST  /books : Create a new book.
@@ -48,7 +47,7 @@ public class BookResource {
         if (book.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("book", "idexists", "A new book cannot already have an ID")).body(null);
         }
-        Book result = bookRepository.save(book);
+        Book result = bookService.save(book);
         return ResponseEntity.created(new URI("/api/books/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("book", result.getId().toString()))
             .body(result);
@@ -70,7 +69,7 @@ public class BookResource {
         if (book.getId() == null) {
             return createBook(book);
         }
-        Book result = bookRepository.save(book);
+        Book result = bookService.save(book);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert("book", book.getId().toString()))
             .body(result);
@@ -88,7 +87,7 @@ public class BookResource {
     public ResponseEntity<List<Book>> getAllBooks(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Books");
-        Page<Book> page = bookRepository.findAll(pageable);
+        Page<Book> page = bookService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/books");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -103,7 +102,7 @@ public class BookResource {
     @Timed
     public ResponseEntity<Book> getBook(@PathVariable String id) {
         log.debug("REST request to get Book : {}", id);
-        Book book = bookRepository.findOne(id);
+        Book book = bookService.findOne(id);
         return Optional.ofNullable(book)
             .map(result -> new ResponseEntity<>(
                 result,
@@ -121,7 +120,7 @@ public class BookResource {
     @Timed
     public ResponseEntity<Void> deleteBook(@PathVariable String id) {
         log.debug("REST request to delete Book : {}", id);
-        bookRepository.delete(id);
+        bookService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("book", id.toString())).build();
     }
 

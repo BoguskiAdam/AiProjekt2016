@@ -1,38 +1,46 @@
 
 <div>
-    <h2><span>Book</span> {{vm.book.title}}</h2>
+    <h2><span>Book</span> {{vm.book.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
-        <dt><span>isbn</span></dt>
+        <dt><span>Isbn</span></dt>
         <dd>
             <span>{{vm.book.isbn}}</span>
         </dd>
-        <dt><span>author</span></dt>
+        <dt><span>Title</span></dt>
+        <dd>
+            <span>{{vm.book.title}}</span>
+        </dd>
+        <dt><span>Author</span></dt>
         <dd>
             <span>{{vm.book.author}}</span>
         </dd>
-        <dt><span>publisher</span></dt>
-        <dd>
-            <span>{{vm.book.publisher}}</span>
-        </dd>
-        <dt><span>yearOfPublication</span></dt>
+        <dt><span>Year Of Publication</span></dt>
         <dd>
             <span>{{vm.book.yearOfPublication}}</span>
         </dd>
-        <dt><span>imageUrlS</span></dt>
+        <dt><span>Image Url S</span></dt>
         <dd>
             <span>{{vm.book.imageUrlS}}</span>
         </dd>
-        <dt><span>imageUrlM</span></dt>
+        <dt><span>Image Url M</span></dt>
         <dd>
             <span>{{vm.book.imageUrlM}}</span>
         </dd>
-        <dt><span>imageUrlL/span></dt>
+        <dt><span>Image Url L</span></dt>
         <dd>
             <span>{{vm.book.imageUrlL}}</span>
         </dd>
-        <dt><span>price</span></dt>
+        <dt><span>Publisher</span></dt>
+        <dd>
+            <span>{{vm.book.Publisher}}</span>
+        </dd>
+        <dt><span>Available</span></dt>
+        <dd>
+            <span>{{vm.book.available}}</span>
+        </dd>
+        <dt><span>Price</span></dt>
         <dd>
             <span>{{vm.book.price}}</span>
         </dd>
