@@ -43,6 +43,9 @@ public class Borrow implements Serializable {
     @Field("fee")
     private BigDecimal fee;
 
+    @Field("paid")
+    private Boolean paid;
+
     public String getId() {
         return id;
     }
@@ -116,6 +119,19 @@ public class Borrow implements Serializable {
         this.fee = fee;
     }
 
+    public Boolean isPaid() {
+        return paid;
+    }
+
+    public Borrow paid(Boolean paid) {
+        this.paid = paid;
+        return this;
+    }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -145,6 +161,7 @@ public class Borrow implements Serializable {
             ", borrowDate='" + borrowDate + "'" +
             ", returnDate='" + returnDate + "'" +
             ", fee='" + fee + "'" +
+            ", paid='" + paid + "'" +
             '}';
     }
 }

@@ -106,17 +106,17 @@ public class BorrowResource {
      * @param id the id of the borrow to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the borrow, or with status 404 (Not Found)
      */
-//    @GetMapping("/borrows/{id}")
-//    @Timed
-//    public ResponseEntity<Borrow> getBorrow(@PathVariable String id) {
-//        log.debug("REST request to get Borrow : {}", id);
-//        Borrow borrow = borrowService.findOne(id);
-//        return Optional.ofNullable(borrow)
-//            .map(result -> new ResponseEntity<>(
-//                result,
-//                HttpStatus.OK))
-//            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//    }
+    @GetMapping("/borrows/{id}")
+    @Timed
+    public ResponseEntity<Borrow> getBorrow(@PathVariable String id) {
+        log.debug("REST request to get Borrow : {}", id);
+        Borrow borrow = borrowService.findOne(id);
+        return Optional.ofNullable(borrow)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
     /**
      * DELETE  /borrows/:id : delete the "id" borrow.

@@ -37,6 +37,10 @@
                 "min"
             ],
             "fieldValidateRulesMin": "0"
+        },
+        {
+            "fieldName": "paid",
+            "fieldType": "Boolean"
         }
     ],
     "dto": "no",

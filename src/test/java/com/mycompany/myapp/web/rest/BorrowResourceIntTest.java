@@ -55,6 +55,9 @@ public class BorrowResourceIntTest {
     private static final BigDecimal DEFAULT_FEE = new BigDecimal(0);
     private static final BigDecimal UPDATED_FEE = new BigDecimal(1);
 
+    private static final Boolean DEFAULT_PAID = false;
+    private static final Boolean UPDATED_PAID = true;
+
     @Inject
     private BorrowRepository borrowRepository;
 
@@ -93,7 +96,8 @@ public class BorrowResourceIntTest {
                 .isbn(DEFAULT_ISBN)
                 .borrowDate(DEFAULT_BORROW_DATE)
                 .returnDate(DEFAULT_RETURN_DATE)
-                .fee(DEFAULT_FEE);
+                .fee(DEFAULT_FEE)
+                .paid(DEFAULT_PAID);
         return borrow;
     }
 
@@ -123,6 +127,7 @@ public class BorrowResourceIntTest {
         assertThat(testBorrow.getBorrowDate()).isEqualTo(DEFAULT_BORROW_DATE);
         assertThat(testBorrow.getReturnDate()).isEqualTo(DEFAULT_RETURN_DATE);
         assertThat(testBorrow.getFee()).isEqualTo(DEFAULT_FEE);
+        assertThat(testBorrow.isPaid()).isEqualTo(DEFAULT_PAID);
     }
 
     @Test
@@ -207,7 +212,8 @@ public class BorrowResourceIntTest {
                 .andExpect(jsonPath("$.[*].isbn").value(hasItem(DEFAULT_ISBN.toString())))
                 .andExpect(jsonPath("$.[*].borrowDate").value(hasItem(DEFAULT_BORROW_DATE.toString())))
                 .andExpect(jsonPath("$.[*].returnDate").value(hasItem(DEFAULT_RETURN_DATE.toString())))
-                .andExpect(jsonPath("$.[*].fee").value(hasItem(DEFAULT_FEE.intValue())));
+                .andExpect(jsonPath("$.[*].fee").value(hasItem(DEFAULT_FEE.intValue())))
+                .andExpect(jsonPath("$.[*].paid").value(hasItem(DEFAULT_PAID.booleanValue())));
     }
 
     @Test
@@ -224,7 +230,8 @@ public class BorrowResourceIntTest {
             .andExpect(jsonPath("$.isbn").value(DEFAULT_ISBN.toString()))
             .andExpect(jsonPath("$.borrowDate").value(DEFAULT_BORROW_DATE.toString()))
             .andExpect(jsonPath("$.returnDate").value(DEFAULT_RETURN_DATE.toString()))
-            .andExpect(jsonPath("$.fee").value(DEFAULT_FEE.intValue()));
+            .andExpect(jsonPath("$.fee").value(DEFAULT_FEE.intValue()))
+            .andExpect(jsonPath("$.paid").value(DEFAULT_PAID.booleanValue()));
     }
 
     @Test
@@ -248,7 +255,8 @@ public class BorrowResourceIntTest {
                 .isbn(UPDATED_ISBN)
                 .borrowDate(UPDATED_BORROW_DATE)
                 .returnDate(UPDATED_RETURN_DATE)
-                .fee(UPDATED_FEE);
+                .fee(UPDATED_FEE)
+                .paid(UPDATED_PAID);
 
         restBorrowMockMvc.perform(put("/api/borrows")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -264,6 +272,7 @@ public class BorrowResourceIntTest {
         assertThat(testBorrow.getBorrowDate()).isEqualTo(UPDATED_BORROW_DATE);
         assertThat(testBorrow.getReturnDate()).isEqualTo(UPDATED_RETURN_DATE);
         assertThat(testBorrow.getFee()).isEqualTo(UPDATED_FEE);
+        assertThat(testBorrow.isPaid()).isEqualTo(UPDATED_PAID);
     }
 
     @Test

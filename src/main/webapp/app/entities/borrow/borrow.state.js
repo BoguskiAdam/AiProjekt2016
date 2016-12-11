@@ -120,6 +120,7 @@
                                 borrowDate: null,
                                 returnDate: null,
                                 fee: null,
+                                paid: null,
                                 id: null
                             };
                         }
