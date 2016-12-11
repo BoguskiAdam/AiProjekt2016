@@ -110,12 +110,12 @@ public class BookRatingsResource {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/book-ratings/user/{userId}")
+    @GetMapping("/book-ratings/user/{isbn}")
     @Timed
-    public ResponseEntity<List<BookRatings>> getAllUserBorrows(@PathVariable String userId)
+    public ResponseEntity<List<BookRatings>> getAllUserBorrows(@PathVariable String isbn)
         throws URISyntaxException {
         log.debug("REST request to get a page of Borrows");
-        List<BookRatings> page = bookRatingsService.findByIsbnString(userId);
+        List<BookRatings> page = bookRatingsService.findByIsbnString(isbn);
         return new ResponseEntity<>(page, HttpStatus.OK);
     }
     /**

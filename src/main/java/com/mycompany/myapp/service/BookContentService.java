@@ -11,6 +11,7 @@ import java.util.List;
  */
 public interface BookContentService {
 
+    public List<BookContent> findBookContentByIsbn (String isbn);
     /**
      * Save a bookContent.
      *
@@ -21,7 +22,7 @@ public interface BookContentService {
 
     /**
      *  Get all the bookContents.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */

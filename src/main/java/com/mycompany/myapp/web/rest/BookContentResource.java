@@ -29,7 +29,7 @@ import java.util.Optional;
 public class BookContentResource {
 
     private final Logger log = LoggerFactory.getLogger(BookContentResource.class);
-        
+
     @Inject
     private BookContentService bookContentService;
 
@@ -53,6 +53,24 @@ public class BookContentResource {
             .body(result);
     }
 
+    @GetMapping("/book-contents/user/{isbn}")
+    @Timed
+    public ResponseEntity<BookContent> getByIsbn(@PathVariable String isbn)
+        throws URISyntaxException {
+        log.debug("REST request to get a page of Borrows");
+        List<BookContent> page = bookContentService.findBookContentByIsbn(isbn);
+        BookContent result;
+        if(page == null || page.size() <1)
+        {
+            result = new BookContent();
+            result.setContent("Brak zawartosci w bazie");
+        }
+        else
+        {
+            result = page.get(0);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
     /**
      * PUT  /book-contents : Updates an existing bookContent.
      *

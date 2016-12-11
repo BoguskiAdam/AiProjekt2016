@@ -19,10 +19,15 @@ import java.util.List;
 public class BookContentServiceImpl implements BookContentService{
 
     private final Logger log = LoggerFactory.getLogger(BookContentServiceImpl.class);
-    
+
     @Inject
     private BookContentRepository bookContentRepository;
 
+    public List<BookContent> findBookContentByIsbn (String isbn) {
+        log.debug("Request to get all Borrows by user id");
+        List<BookContent> result = bookContentRepository.findBookContentByIsbn(isbn);
+        return result;
+    }
     /**
      * Save a bookContent.
      *
@@ -37,7 +42,7 @@ public class BookContentServiceImpl implements BookContentService{
 
     /**
      *  Get all the bookContents.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
