@@ -27,6 +27,8 @@ public interface BorrowService {
      */
     Page<Borrow> findAll(Pageable pageable);
 
+    List<Borrow> findAll();
+
     /**
      *  Get the "id" borrow.
      *

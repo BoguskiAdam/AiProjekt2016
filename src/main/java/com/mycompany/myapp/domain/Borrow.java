@@ -44,7 +44,7 @@ public class Borrow implements Serializable {
     private BigDecimal fee;
 
     @Field("paid")
-    private Boolean paid;
+    private Boolean paid = false;
 
     public String getId() {
         return id;

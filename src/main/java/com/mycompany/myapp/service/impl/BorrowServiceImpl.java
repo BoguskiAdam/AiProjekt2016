@@ -46,6 +46,11 @@ public class BorrowServiceImpl implements BorrowService{
         Page<Borrow> result = borrowRepository.findAll(pageable);
         return result;
     }
+    public List<Borrow> findAll() {
+        log.debug("Request to get all Borrows");
+        List<Borrow> result = borrowRepository.findAll();
+        return result;
+    }
 
     public List<Borrow> findByUserId(String userId) {
         log.debug("Request to get all Borrows by user id");
