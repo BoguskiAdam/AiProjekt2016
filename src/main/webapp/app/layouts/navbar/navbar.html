@@ -22,6 +22,12 @@
                         <span class="hidden-sm">Strona glowna</span>
                     </a>
                 </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="borrows" ng-click="vm.collapseNavbar()" href="#/borrows/">
+                        <span class="glyphicon glyphicon></span>
+                        <span class="hidden-sm">Wypozyczenia</span>
+                    </a>
+                </li>
 
                 <!-- Moje konto -->
                 <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">
