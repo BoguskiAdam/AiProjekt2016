@@ -29,6 +29,7 @@ public interface BookRatingsService {
      */
     Page<BookRatings> findAll(Pageable pageable);
 
+    List<BookRatings> findAll();
     /**
      *  Get the "id" bookRatings.
      *

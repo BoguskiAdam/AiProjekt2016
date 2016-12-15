@@ -54,6 +54,11 @@ public class BookRatingsServiceImpl implements BookRatingsService{
         return result;
     }
 
+    public List<BookRatings> findAll() {
+        log.debug("Request to get all BookRatings");
+        List<BookRatings> result = bookRatingsRepository.findAll();
+        return result;
+    }
     /**
      *  Get one bookRatings by id.
      *
