@@ -1,0 +1,24 @@
+<div>
+    <h2>Ranking ksiazek o najwyzszej sredniej ocen</h2>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+            <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                <th><span>ISBN</span></span></th>
+                <th><span>Tytul</span></span></th>
+                <th><span>Autor</span> </span></th>
+                <th><span>Srednia ocen</span></span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="rating in vm.bookRatings">
+                <td>{{rating.isbn}}</td>
+                <td>{{rating.bookName}}</td>
+                <td>{{rating.bookAuthor}}</td>
+                <td>{{rating.averageRating}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
