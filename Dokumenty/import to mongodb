@@ -1,8 +1,0 @@
-//Book
-tar -xf Desktop/Projekt/Dokumenty/book.json.tar.gz
-mongoimport --db AiProjekt --collection book --file book.json
-
-
-//BookRatings
-tar -xf Desktop/Projekt/Dokumenty/BookRatings.json.tar.gz
-mongoimport --db AiProjekt --collection book --file BookRatings.json
