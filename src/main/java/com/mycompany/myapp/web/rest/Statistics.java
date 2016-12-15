@@ -1,6 +1,7 @@
 package com.mycompany.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.mycompany.myapp.domain.Book;
 import com.mycompany.myapp.domain.Borrow;
 import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.service.BookService;
@@ -8,6 +9,7 @@ import com.mycompany.myapp.service.BorrowService;
 import com.mycompany.myapp.service.UserService;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import com.mycompany.myapp.web.rest.util.PaginationUtil;
+import com.mycompany.myapp.web.rest.vm.TopBorrows;
 import com.mycompany.myapp.web.rest.vm.TopUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,6 +87,55 @@ public class Statistics {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/statistics/borrows")
+    @Timed
+    public ResponseEntity<List<TopBorrows>> getTopBorrows()
+        throws URISyntaxException {
+        log.debug("REST request to get top users");
+        List<Borrow> borrows = borrowService.findAll();
+        log.debug("Tworzenie listy - borrows size " + borrows.size());
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        for(Borrow b : borrows)
+        {
+            if(b.isPaid()) {
+                String isbn = b.getIsbn();
+                if (map.containsKey(isbn)) {
+                    int newValue = map.get(isbn) + 1;
+                    map.replace(isbn, newValue);
+                } else {
+                    map.put(isbn, 1);
+                }
+            }
+        }
+        List<TopBorrows> result = new ArrayList<TopBorrows>();
+        map = sortByValue(map);
+        int i = 0;
+        Iterator it = map.entrySet().iterator();
+        Map.Entry<String, Integer> entry;
+        while(i<10 && it.hasNext())
+        {
+            entry = (Map.Entry)it.next();
+            log.debug("Tworzenie listy: " + entry.getKey() + ":" + entry.getValue());
+            Book book = bookService.findOneByIsbn(entry.getKey());
+            if(book != null)
+                log.debug("Tworzenie listy - book: " + book.getIsbn());
+            else
+                log.debug("Tworzenie listy - book: nullowa ");
+
+
+            if(book!=null)
+            {
+                TopBorrows newTopBorrow = new TopBorrows();
+                newTopBorrow.bookAuthor = book.getAuthor();
+                newTopBorrow.bookName = book.getTitle();
+                newTopBorrow.isbn = book.getIsbn();
+                newTopBorrow.borrows = entry.getValue();
+                result.add(newTopBorrow);
+            }
+            it.remove();
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
     public <K, V> Map<String, Integer> sortByValue(Map<String, Integer> map) {
         return map.entrySet()

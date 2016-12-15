@@ -21,7 +21,7 @@ public interface BookService {
 
     /**
      *  Get all the books.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -34,6 +34,14 @@ public interface BookService {
      *  @return the entity
      */
     Book findOne(String id);
+
+    /**
+     *  Get the "id" book.
+     *
+     *  @param isbn the id of the book
+     *  @return the entity
+     */
+    Book findOneByIsbn(String isbn);
 
     /**
      *  Delete the "id" book.

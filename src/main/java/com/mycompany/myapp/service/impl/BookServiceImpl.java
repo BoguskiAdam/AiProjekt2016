@@ -19,7 +19,7 @@ import java.util.List;
 public class BookServiceImpl implements BookService{
 
     private final Logger log = LoggerFactory.getLogger(BookServiceImpl.class);
-    
+
     @Inject
     private BookRepository bookRepository;
 
@@ -37,7 +37,7 @@ public class BookServiceImpl implements BookService{
 
     /**
      *  Get all the books.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -56,6 +56,23 @@ public class BookServiceImpl implements BookService{
     public Book findOne(String id) {
         log.debug("Request to get Book : {}", id);
         Book book = bookRepository.findOne(id);
+        return book;
+    }
+
+    /**
+     *  Get one book by id.
+     *
+     *  @param isbn the id of the entity
+     *  @return the entity
+     */
+    public Book findOneByIsbn(String isbn) {
+        log.debug("Request to get Book by isbn : {}", isbn);
+        Book book = null;
+        List<Book> list = bookRepository.findBookByIsbn(isbn);
+        if(list.size() >0)
+        {
+            book = list.get(0);
+        }
         return book;
     }
 
