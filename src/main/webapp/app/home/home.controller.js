@@ -9,6 +9,8 @@
 
     function HomeController ($scope, Principal, LoginService, $state, Book, ParseLinks, AlertService, pagingParams, paginationConstants) {
         var vm = this;
+        //var data = Book
+        //vm.tableParams = new NgTableParams({}, { dataset: data});
 
         vm.account = null;
         vm.isAuthenticated = null;
@@ -55,6 +57,7 @@
                         vm.links = ParseLinks.parse(headers('link'));
                         vm.totalItems = headers('X-Total-Count');
                         vm.queryCount = vm.totalItems;
+                        //if(vm.books.avaialable !== 0)
                         vm.books = data;
                         vm.page = pagingParams.page;
                     }

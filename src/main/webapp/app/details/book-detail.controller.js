@@ -11,11 +11,26 @@
         var vm = this;
 
         vm.book = entity;
-        vm.previousState = previousState.name;
 
-        var unsubscribe = $rootScope.$on('aiProjektApp:bookUpdate', function(event, result) {
-            vm.book = result;
+        vm.settingsAccount = null;
+
+        var copyAccount = function (account) {
+            return {
+                activated: account.activated,
+                email: account.email,
+                firstName: account.firstName,
+                langKey: account.langKey,
+                lastName: account.lastName,
+                login: account.login
+            };
+        };
+
+        Principal.identity().then(function(account) {
+            vm.settingsAccount = copyAccount(account);
         });
-        $scope.$on('$destroy', unsubscribe);
+
+
+
+
     }
 })();

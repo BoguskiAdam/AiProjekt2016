@@ -38,8 +38,8 @@
     </div>
 </div>
 <div>
-    <div class="table-responsive">
-        <table class="jh-table table table-striped table-hover">
+    <div class="panel panel-default">
+        <table ng-table="vm.tableParams" show-filter="true" class="table">
             <thead>
             <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                 <th><span>Obraz</span> </th>
@@ -50,7 +50,8 @@
             </tr>
             </thead>
             <tbody >
-            <tr ng-repeat="book in vm.books track by book.id" >
+            <tr ng-repeat="book in vm.books track by book.id ">
+
                 <td><img class="books-small" src="{{book.imageUrlS}}"/></td>
                 <td>{{book.title}}</td>
                 <td>{{book.author}}</td>
@@ -59,14 +60,8 @@
                     <div ng-switch="vm.isAuthenticated()">
                         <div ng-switch-when="true" class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="bookStore-detail({id:book.id})"
+                                    ui-sref="bookStore-borrow({id:book.id})"
                                     class="btn btn-info btn-sm">
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                <span class="hidden-xs hidden-sm"></span>
-                            </button>
-                        </div>
-                        <div ng-switch-when="false" class="btn-group flex-btn-group-container">
-                            <button type="submit" class="btn btn-secondary btn-sm" disabled>
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm"></span>
                             </button>

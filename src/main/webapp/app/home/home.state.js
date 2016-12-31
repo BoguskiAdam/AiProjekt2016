@@ -46,9 +46,9 @@
                              }],
                          }
         })
-        .state('bookStore-detail', {
+        .state('bookStore-borrow', {
             parent: 'app',
-            url: '/ksiazka/{id}',
+            url: '/bookStore-borrow/{id}',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'Szczegoly ksiazki'
