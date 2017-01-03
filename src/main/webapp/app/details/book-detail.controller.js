@@ -3,34 +3,70 @@
 
     angular
         .module('aiProjektApp')
-        .controller('BookStoreDetailController', BookStoreDetailController);
+        .controller('BookStoreDetailController', BookStoreDetailController)
+        .directive('toNumber', function () {
+             return {
+                 require: 'ngModel',
+                 link: function (scope, elem, attrs, ctrl) {
+                     ctrl.$parsers.push(function (value) {
+                         return parseFloat(value || '');
+                     });
+                 }
+             };
+         });
+    BookStoreDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Book', 'Borrow'];
 
-    BookStoreDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Book'];
-
-    function BookStoreDetailController($scope, $rootScope, $stateParams, previousState, entity, Book) {
+    function BookStoreDetailController($scope, $rootScope, $stateParams, previousState, entity, Book, Borrow) {
         var vm = this;
 
         vm.book = entity;
+        vm.previousState = previousState.name;
 
-        vm.settingsAccount = null;
+        vm.rating = 5;
+        vm.daysCountOld=1;
+        vm.daysCount = 1;
+        vm.cost = vm.daysCount * vm.book.price;
+        vm.returnDate = countDate(vm.daysCount);
 
-        var copyAccount = function (account) {
-            return {
-                activated: account.activated,
-                email: account.email,
-                firstName: account.firstName,
-                langKey: account.langKey,
-                lastName: account.lastName,
-                login: account.login
-            };
-        };
+        var unsubscribe = $rootScope.$on('aiProjektApp:bookUpdate', function(event, result) {
+            vm.book = result;
+        });
+        $scope.$on('$destroy', unsubscribe);
 
-        Principal.identity().then(function(account) {
-            vm.settingsAccount = copyAccount(account);
+        $scope.$watch('vm.daysCount', function(newVal, oldVal){
+            vm.cost = vm.daysCount * vm.book.price;
+            vm.returnDate = countDate(vm.daysCount)
         });
 
+        function countDate(days)
+        {
+            var result = new Date();
+            result.setDate(result.getDate() + parseInt(days));
+            var dd = result.getDate();
+            var mm = result.getMonth() + 1;
+            var y = result.getFullYear();
+            var someFormattedDate = dd + ' - '+ mm + ' - '+ y;
+            return someFormattedDate;
+        };
 
-
-
+        $scope.borrowBookFunction = function()
+        {
+            var currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() + 0);
+            var returnDate = new Date();
+            returnDate.setDate(returnDate.getDate() + parseInt(vm.daysCount));
+            var borrow =
+            {
+                borrowDate : currentDate,
+                fee : vm.cost,
+                isbn: vm.book.isbn,
+                paid:false,
+                returnDate: returnDate,
+                userId: ''
+            };
+            console.log(JSON.stringify(borrow));
+            Borrow.save(borrow);
+            console.log('zrobione');
+        };
     }
 })();

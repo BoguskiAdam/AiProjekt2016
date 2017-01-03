@@ -56,7 +56,7 @@
             views: {
                 'content@': {
                     templateUrl: 'app/details/book-detail.html',
-                    controller: 'BookDetailController',
+                    controller: 'BookStoreDetailController',
                     controllerAs: 'vm'
                 }
             },

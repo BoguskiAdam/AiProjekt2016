@@ -5,6 +5,7 @@ import com.mycompany.myapp.domain.Borrow;
 import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.service.BorrowService;
+import com.mycompany.myapp.service.UserService;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import com.mycompany.myapp.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -38,6 +39,9 @@ public class BorrowResource {
 
     @Inject
     private UserRepository userRepository;
+
+    @Inject
+    private UserService userService;
     /**
      * POST  /borrows : Create a new borrow.
      *
@@ -52,6 +56,8 @@ public class BorrowResource {
         if (borrow.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("borrow", "idexists", "A new borrow cannot already have an ID")).body(null);
         }
+        User user = userService.getUserWithAuthorities();
+        borrow.setUserId(user.getId());
         Borrow result = borrowService.save(borrow);
         return ResponseEntity.created(new URI("/api/borrows/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("borrow", result.getId().toString()))
@@ -72,6 +78,8 @@ public class BorrowResource {
     public ResponseEntity<Borrow> updateBorrow(@Valid @RequestBody Borrow borrow) throws URISyntaxException {
         log.debug("REST request to update Borrow : {}", borrow);
         if (borrow.getId() == null) {
+            User user = userService.getUserWithAuthorities();
+            borrow.setUserId(user.getId());
             return createBorrow(borrow);
         }
         Borrow result = borrowService.save(borrow);
