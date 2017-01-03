@@ -5,31 +5,11 @@
         .module('aiProjektApp')
         .controller('UserBorrowsController', UserBorrowsController);
 
-    UserBorrowsController.$inject = ['$scope', '$state', 'ParseLinks', 'AlertService', 'UserBorrows'];
+    UserBorrowsController.$inject = ['$scope', '$state', 'ParseLinks', 'AlertService', 'UserBorrows', 'entities'];
 
-    function UserBorrowsController ($scope, $state, ParseLinks, AlertService, UserBorrows) {
+    function UserBorrowsController ($scope, $state, ParseLinks, AlertService, UserBorrows, entities) {
         var vm = this;
-        vm.test = 'Nie zaladowane';
-        loadAll();
-        console.log('loadAll - Przed');
-
-        function loadAll () {
-                    UserBorrows.query({
-                    }, onSuccess, onError);
-                    function onSuccess(data, headers) {
-                        console.log('loadAll - onSuccess');
-                        console.log(JSON.stringify(data));
-//                        vm.links = ParseLinks.parse(headers('link'));
-                        vm.totalItems = headers('X-Total-Count');
-                        vm.queryCount = vm.totalItems;
-                        vm.borrows = data;
-                        console.log('loadAll - onSuccess Complete');
-                    }
-                    function onError(error) {
-                        console.log('loadAll - onError');
-                        AlertService.error(error.data.message);
-                    }
-            }
+        vm.borrows = entities;
         }
     })();
 

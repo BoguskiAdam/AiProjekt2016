@@ -8,6 +8,7 @@
     Principal.$inject = ['$q', 'Account'];
 
     function Principal ($q, Account) {
+        var login = 'null';
         var _identity,
             _authenticated = false;
 
@@ -54,6 +55,7 @@
         }
 
         function identity (force) {
+            var iden;
             var deferred = $q.defer();
 
             if (force === true) {
@@ -64,7 +66,8 @@
             // if we have, reuse it by immediately resolving
             if (angular.isDefined(_identity)) {
                 deferred.resolve(_identity);
-
+                login = _identity;
+                iden= _identity;
                 return deferred.promise;
             }
 
@@ -77,6 +80,8 @@
 
             function getAccountThen (account) {
                 _identity = account.data;
+                login = account.data;
+                iden = _identity;
                 _authenticated = true;
                 deferred.resolve(_identity);
             }

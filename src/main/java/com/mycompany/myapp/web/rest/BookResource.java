@@ -29,7 +29,7 @@ import java.util.Optional;
 public class BookResource {
 
     private final Logger log = LoggerFactory.getLogger(BookResource.class);
-        
+
     @Inject
     private BookService bookService;
 
@@ -98,11 +98,23 @@ public class BookResource {
      * @param id the id of the book to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the book, or with status 404 (Not Found)
      */
-    @GetMapping("/books/{id}")
+    @GetMapping("/books/{id}{isbn}")
     @Timed
-    public ResponseEntity<Book> getBook(@PathVariable String id) {
+    public ResponseEntity<Book> getBook(@PathVariable String id,@PathVariable String isbn) {
         log.debug("REST request to get Book : {}", id);
         Book book = bookService.findOne(id);
+        return Optional.ofNullable(book)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/booksIsbn/{isbn}")
+    @Timed
+    public ResponseEntity<Book> getBookByIsbn(@PathVariable String isbn) {
+        log.debug("REST request to get Book : {}", isbn);
+        Book book = bookService.findOneByIsbn(isbn);
         return Optional.ofNullable(book)
             .map(result -> new ResponseEntity<>(
                 result,

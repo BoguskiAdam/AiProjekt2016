@@ -2,18 +2,17 @@
     'use strict';
     angular
         .module('aiProjektApp')
-        .factory('UserBorrows', UserBorrows);
+        .factory('BookIsbn', BookIsbn);
 
-    UserBorrows.$inject = ['$resource'];
+    BookIsbn.$inject = ['$resource'];
 
-    function UserBorrows ($resource) {
-        var resourceUrl =  'api/borrows/user/:userId';
+    function BookIsbn ($resource) {
+        var resourceUrl =  'api/booksIsbn/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
-                isArray: true,
                 transformResponse: function (data) {
                     if (data) {
                         data = angular.fromJson(data);

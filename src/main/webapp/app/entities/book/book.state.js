@@ -74,6 +74,34 @@
                 }]
             }
         })
+        .state('book-detail-isbn', {
+            parent: 'entity',
+            url: '/book/{id}',
+            data: {
+                authorities: ['ROLE_ADMIN'],
+                pageTitle: 'Book'
+            },
+            views: {
+                'content@': {
+                    templateUrl: 'app/entities/book/book-detail.html',
+                    controller: 'BookDetailIsbnController',
+                    controllerAs: 'vm'
+                }
+            },
+            resolve: {
+                entity: ['$stateParams', 'Book', function($stateParams, Book) {
+                    return BookIsbn.get({id : $stateParams.id}).$promise;
+                }],
+                previousState: ["$state", function ($state) {
+                    var currentStateData = {
+                        name: $state.current.name || 'book',
+                        params: $state.params,
+                        url: $state.href($state.current.name, $state.params)
+                    };
+                    return currentStateData;
+                }]
+            }
+        })
         .state('book-detail.edit', {
             parent: 'book-detail',
             url: '/detail/edit',

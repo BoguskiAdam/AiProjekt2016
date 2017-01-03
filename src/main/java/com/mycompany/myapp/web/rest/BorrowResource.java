@@ -2,6 +2,8 @@ package com.mycompany.myapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mycompany.myapp.domain.Borrow;
+import com.mycompany.myapp.domain.User;
+import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.service.BorrowService;
 import com.mycompany.myapp.web.rest.util.HeaderUtil;
 import com.mycompany.myapp.web.rest.util.PaginationUtil;
@@ -33,6 +35,9 @@ public class BorrowResource {
     @Inject
     private BorrowService borrowService;
 
+
+    @Inject
+    private UserRepository userRepository;
     /**
      * POST  /borrows : Create a new borrow.
      *
@@ -91,11 +96,13 @@ public class BorrowResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/borrows");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
-    @GetMapping("/borrows/user/{userId}")
+    @GetMapping("/borrows/user/{userLogin}")
     @Timed
-    public ResponseEntity<List<Borrow>> getAllUserBorrows(@PathVariable String userId)
+    public ResponseEntity<List<Borrow>> getAllUserBorrows(@PathVariable String userLogin)
         throws URISyntaxException {
         log.debug("REST request to get a page of Borrows");
+        Optional<User> user = userRepository.findOneByLogin(userLogin);
+        String userId = user.get().getId();
         List<Borrow> page = borrowService.findByUserId(userId);
         return new ResponseEntity<>(page, HttpStatus.OK);
     }

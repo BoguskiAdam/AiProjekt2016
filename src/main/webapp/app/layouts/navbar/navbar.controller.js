@@ -5,13 +5,16 @@
         .module('aiProjektApp')
         .controller('NavbarController', NavbarController);
 
-    NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService'];
+    NavbarController.$inject = ['$state', 'Auth', 'Principal', 'ProfileService', 'LoginService','User'];
 
-    function NavbarController ($state, Auth, Principal, ProfileService, LoginService) {
+    function NavbarController ($state, Auth, Principal, ProfileService, LoginService, User) {
         var vm = this;
+
+        vm.userId = 'user-2';
 
         vm.isNavbarCollapsed = true;
         vm.isAuthenticated = Principal.isAuthenticated;
+
 
         ProfileService.getProfileInfo().then(function(response) {
             vm.inProduction = response.inProduction;
@@ -24,9 +27,15 @@
         vm.collapseNavbar = collapseNavbar;
         vm.$state = $state;
 
+        Principal.identity(true)
+                .then(function(response)
+                {
+                    vm.userId = response.login;
+                });
+
         function login() {
             collapseNavbar();
-            LoginService.open();
+            var a = LoginService.open();
         }
 
         function logout() {

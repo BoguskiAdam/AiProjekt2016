@@ -4,22 +4,31 @@
         <table class="jh-table table table-striped">
             <thead>
             <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                <th jh-sort-by="userId"><span>User Id</span> <span class="glyphicon glyphicon-sort"></span></th>
                 <th jh-sort-by="isbn"><span>Isbn</span> <span class="glyphicon glyphicon-sort"></span></th>
                 <th jh-sort-by="borrowDate"><span>Borrow Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                 <th jh-sort-by="returnDate"><span>Return Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                 <th jh-sort-by="fee"><span>Fee</span> <span class="glyphicon glyphicon-sort"></span></th>
                 <th jh-sort-by="paid"><span>Paid</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="borrow in vm.borrows">
-                <td>{{borrow.userId}}</td>
                 <td>{{borrow.isbn}}</td>
                 <td>{{borrow.borrowDate | date:'mediumDate'}}</td>
                 <td>{{borrow.returnDate | date:'mediumDate'}}</td>
                 <td>{{borrow.fee}}</td>
                 <td>{{borrow.paid}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                ui-sref="book-detail-isbn({isbn:borrow.isbn})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span class="hidden-xs hidden-sm"></span>
+                        </button>
+                    </div>
+                </td>
             </tr>
             </tbody>
         </table>
