@@ -358,3 +358,17 @@ span.lewa
    min-width: 150px;
 }
 /* jhipster-needle-css-add-main JHipster will add new css style */
+
+.animate-show-hide.ng-hide {
+  opacity: 0;
+  transition: all linear 0.5s;
+}
+
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+
+.check-element {
+  opacity: 1;
+}

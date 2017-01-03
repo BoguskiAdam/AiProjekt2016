@@ -27,6 +27,7 @@
         vm.daysCount = 1;
         vm.cost = vm.daysCount * vm.book.price;
         vm.returnDate = countDate(vm.daysCount);
+        vm.isBorrowed = false;
 
         var unsubscribe = $rootScope.$on('aiProjektApp:bookUpdate', function(event, result) {
             vm.book = result;
@@ -36,6 +37,10 @@
         $scope.$watch('vm.daysCount', function(newVal, oldVal){
             vm.cost = vm.daysCount * vm.book.price;
             vm.returnDate = countDate(vm.daysCount)
+        });
+
+        $scope.$watch('vm.isBorrowed', function(newVal, oldVal){
+
         });
 
         function countDate(days)
@@ -51,6 +56,12 @@
 
         $scope.borrowBookFunction = function()
         {
+            if(vm.isBorrowed)
+            {
+                   console.log('juz jest wypozyczona');
+                   return;
+
+            }
             var currentDate = new Date();
             currentDate.setDate(currentDate.getDate() + 0);
             var returnDate = new Date();
@@ -67,6 +78,7 @@
             console.log(JSON.stringify(borrow));
             Borrow.save(borrow);
             console.log('zrobione');
+            vm.isBorrowed = true;
         };
     }
 })();

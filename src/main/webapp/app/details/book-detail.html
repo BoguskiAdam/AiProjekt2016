@@ -62,8 +62,16 @@
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span>Powrot</span>
     </button>
 
-    <button type="button" ng-click="borrowBookFunction()" class="btn btn-success col-md-2 col-md-offset-8">
-        <span class="glyphicon glyphicon-shopping-cart"></span>
-        <span class="hidden-xs hidden-sm">Wypozycz</span>
-    </button>
+        <div class="btn-group flex-btn-group-container check-element animate-show-hide" ng-hide="vm.isBorrowed" ng-change="changeHandler()" ng-model="vm.isBorrowed">
+            <button type="button"  ng-click="borrowBookFunction()" class="btn btn-success col-md-2 col-md-offset-8">
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+                <span class="hidden-xs hidden-sm">Wypozycz</span>
+            </button>
+        </div>
+    <div class="btn-group flex-btn-group-container check-element animate-show-hide" ng-show="vm.isBorrowed" ng-change="changeHandler()" ng-model="vm.isBorrowed">
+        <button type="button"  ng-click="borrowBookFunction()" class="btn btn-success col-md-2 col-md-offset-8" disabled>
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+            <span class="hidden-xs hidden-sm">Wykonaj platnosc</span>
+        </button>
+    </div>
 </div>
