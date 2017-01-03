@@ -53,7 +53,7 @@ public class BookContentResource {
             .body(result);
     }
 
-    @GetMapping("/book-contents/user/{isbn}")
+    @GetMapping("/book-contents/isbn/{isbn}")
     @Timed
     public ResponseEntity<BookContent> getByIsbn(@PathVariable String isbn)
         throws URISyntaxException {
