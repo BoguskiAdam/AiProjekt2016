@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('statistics', {
+        .state('statisticsTopBorrows', {
             parent: 'app',
-            url: '/statistics/ratings',
+            url: '/statistics/borrows',
             data: {
                 authorities: ['ROLE_USER'],
                 pageTitle: 'Statistics'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/statistics/statistics.html',
-                    controller: 'StatisticsController',
+                    templateUrl: 'app/statisticsTopBorrows/statisticsTopBorrows.html',
+                    controller: 'StatisticsTopBorrowsController',
                     controllerAs: 'vm'
                 }
             }

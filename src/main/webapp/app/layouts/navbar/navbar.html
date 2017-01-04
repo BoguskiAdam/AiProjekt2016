@@ -29,6 +29,35 @@
                     </a>
                 </li>
 
+                <!-- Statystyki -->
+                <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">
+                    <a class="dropdown-toggle" uib-dropdown-toggle href="" id="statistics-menu">
+                        <span>
+                            <span class="glyphicon glyphicon-stats"></span>
+                            <span class="hidden-sm">
+                                Statystyki
+                            </span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu>
+
+                        <li ui-sref-active="active">
+                            <a ui-sref="statistics" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="hidden-sm">Srednia ocen</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="statisticsTopBorrows" ng-click="vm.collapseNavbar()">
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="hidden-sm">Najwiecej wypozyczen</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
                 <!-- Moje konto -->
                 <li ng-class="{active: vm.$state.includes('account')}" uib-dropdown class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="account-menu">
@@ -121,14 +150,8 @@
                     </ul>
                 </li>
 
-                <!-- Administracja -->
 
-                <li ui-sref-active="active">
-                    <a ui-sref="statistics" ng-click="vm.collapseNavbar()">
-                        <span class="glyphicon glyphicon-stats"></span>
-                        <span class="hidden-sm">Statystyki</span>
-                    </a>
-                </li>
+                <!-- Administracja -->
                 <li ng-class="{active: vm.$state.includes('admin')}"  ng-switch-when="true" has-authority="ROLE_ADMIN" uib-dropdown class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="admin-menu">
                         <span>
