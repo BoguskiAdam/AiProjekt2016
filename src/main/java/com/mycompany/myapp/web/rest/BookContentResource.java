@@ -63,7 +63,7 @@ public class BookContentResource {
         if(page == null || page.size() <1)
         {
             result = new BookContent();
-            result.setContent("Brak zawartosci w bazie");
+            result.setContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eros arcu, aliquet interdum odio vitae, gravida porta sapien. ");
         }
         else
         {
